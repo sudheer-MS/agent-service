@@ -35,11 +35,11 @@ public class TravelAgentController {
 	}
 	
 	@PutMapping("/agents")
-	ResponseEntity<String> updateTravelAgent(@RequestBody TravelAgent travelAgent){
-		String reponse = travelAgentService.updateTravelAgent(travelAgent);
+	ResponseEntity<TravelAgent> updateTravelAgent(@RequestBody TravelAgent travelAgent){
+		TravelAgent updatedAgent = travelAgentService.updateTravelAgent(travelAgent);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "update a travel agent api");
-		return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(reponse);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(updatedAgent);
 	}
 	
 	@DeleteMapping("/agents/{agentId}")
@@ -66,8 +66,8 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(allAgents);
 	}
 	
-	@GetMapping("/agents/name/{name}")
-	ResponseEntity<List<TravelAgent>> getAgentsByName(@PathVariable("name") String agentName){
+	@GetMapping("/agents/agent-name/{agentName}")
+	ResponseEntity<List<TravelAgent>> getAgentsByName(@PathVariable("agentName") String agentName){
 		List<TravelAgent> agentsByName = travelAgentService.getAgentsByName(agentName);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "get travel agents by name api");

@@ -26,9 +26,9 @@ public class TravelAgentServiceImpl implements ITravelAgentService{
 	}
 
 	@Override
-	public String updateTravelAgent(TravelAgent travelAgent) {
-		travelAgentRepository.save(travelAgent);
-		return "Travel Agent updated successfully";
+	public TravelAgent updateTravelAgent(TravelAgent travelAgent) {
+		TravelAgent updatedAgent = travelAgentRepository.save(travelAgent);
+		return updatedAgent;
 	}
 
 	@Override

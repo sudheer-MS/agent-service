@@ -11,7 +11,7 @@ public interface ITravelAgentService {
 	
 	TravelAgent createAgent(TravelAgent travelAgent);
 	
-	String updateTravelAgent(TravelAgent travelAgent);
+	TravelAgent updateTravelAgent(TravelAgent travelAgent);
 	
 	String deleteTravelAgent(int agentId);
 	
