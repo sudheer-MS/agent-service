@@ -26,7 +26,7 @@ public class TravelAgentController {
 	
 	ITravelAgentService travelAgentService;
 	
-	@PostMapping("/agent")
+	@PostMapping("/agents")
 	ResponseEntity<TravelAgent> createAgent(@RequestBody TravelAgent travelAgent){
 		TravelAgent newTravelAgent = travelAgentService.createAgent(travelAgent);
 		HttpHeaders headers = new HttpHeaders();
@@ -34,7 +34,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.CREATED).headers(headers).body(newTravelAgent);
 	}
 	
-	@PutMapping("/agent")
+	@PutMapping("/agents")
 	ResponseEntity<String> updateTravelAgent(@RequestBody TravelAgent travelAgent){
 		String reponse = travelAgentService.updateTravelAgent(travelAgent);
 		HttpHeaders headers = new HttpHeaders();
@@ -42,7 +42,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).headers(headers).body(reponse);
 	}
 	
-	@DeleteMapping("/agent/{agentId}")
+	@DeleteMapping("/agents/{agentId}")
 	ResponseEntity<String> deleteTravelAgent(@PathVariable("agentId") int agentId){
 		String reponse = travelAgentService.deleteTravelAgent(agentId);
 		HttpHeaders headers = new HttpHeaders();
@@ -50,7 +50,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(reponse);
 	}
 	
-	@GetMapping("/agent/{agentId}")
+	@GetMapping("/agents/{agentId}")
 	ResponseEntity<TravelAgent> getByAgentId(@PathVariable("agentId") int agentId){
 		TravelAgent getTravelAgent = travelAgentService.getByAgentId(agentId);
 		HttpHeaders headers = new HttpHeaders();
@@ -58,7 +58,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(getTravelAgent);
 	}
 	
-	@GetMapping("/agent")
+	@GetMapping("/agents")
 	ResponseEntity<List<TravelAgent>> getAllAgents(){
 		List<TravelAgent> allAgents = travelAgentService.getAllAgents();
 		HttpHeaders headers = new HttpHeaders();
@@ -66,7 +66,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(allAgents);
 	}
 	
-	@GetMapping("/agent/name/{name}")
+	@GetMapping("/agents/name/{name}")
 	ResponseEntity<List<TravelAgent>> getAgentsByName(@PathVariable("name") String agentName){
 		List<TravelAgent> agentsByName = travelAgentService.getAgentsByName(agentName);
 		HttpHeaders headers = new HttpHeaders();
@@ -74,7 +74,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByName);
 	}
 	
-	@GetMapping("/agent/owner/{owner}")
+	@GetMapping("/agents/owner/{owner}")
 	ResponseEntity<List<TravelAgent>> getAgentsByOwner(@PathVariable("owner") String owner){
 		List<TravelAgent> agentsByOwner = travelAgentService.getAgentsByOwner(owner);
 		HttpHeaders headers = new HttpHeaders();
@@ -82,7 +82,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByOwner);
 	}
 	
-	@GetMapping("/agent/priority/{priority}")
+	@GetMapping("/agents/priority/{priority}")
 	ResponseEntity<List<TravelAgent>> getAgentsByPriority(@PathVariable("priority") String priority){
 		List<TravelAgent> agentsByPriority = travelAgentService.getAgentsByPriority(priority);
 		HttpHeaders headers = new HttpHeaders();
@@ -90,7 +90,7 @@ public class TravelAgentController {
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByPriority);
 	}
 	
-	@GetMapping("/agent/status/{status}")
+	@GetMapping("/agents/status/{status}")
 	ResponseEntity<List<TravelAgent>> getAgentsByStatus(@PathVariable("status") String status){
 		List<TravelAgent> agentsByStatus = travelAgentService.getAgentsByStatus(status);
 		HttpHeaders headers = new HttpHeaders();
