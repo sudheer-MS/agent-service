@@ -21,7 +21,7 @@ import com.travelagent.service.ITravelAgentService;
  *
  */
 @RestController
-@RequestMapping("/agent-service")
+@RequestMapping("/agent-api")
 public class TravelAgentController {
 	
 	ITravelAgentService travelAgentService;
