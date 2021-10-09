@@ -2,6 +2,8 @@ package com.travelagent.controllers;
 
 import java.util.List;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.travelagent.model.Priority;
+import com.travelagent.model.Status;
 import com.travelagent.model.TravelAgent;
 import com.travelagent.service.ITravelAgentService;
 /**
@@ -26,6 +30,11 @@ public class TravelAgentController {
 	
 	ITravelAgentService travelAgentService;
 	
+	@Autowired
+	public void setTravelAgentService(ITravelAgentService travelAgentService) {
+		this.travelAgentService = travelAgentService;
+	}
+
 	@PostMapping("/agents")
 	ResponseEntity<TravelAgent> createAgent(@RequestBody TravelAgent travelAgent){
 		TravelAgent newTravelAgent = travelAgentService.createAgent(travelAgent);
@@ -84,7 +93,8 @@ public class TravelAgentController {
 	
 	@GetMapping("/agents/priority/{priority}")
 	ResponseEntity<List<TravelAgent>> getAgentsByPriority(@PathVariable("priority") String priority){
-		List<TravelAgent> agentsByPriority = travelAgentService.getAgentsByPriority(priority);
+		Priority agentPriority = Priority.valueOf(priority.toUpperCase());
+		List<TravelAgent> agentsByPriority = travelAgentService.getAgentsByPriority(agentPriority);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "get travel agents by priority api");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByPriority);
@@ -92,7 +102,8 @@ public class TravelAgentController {
 	
 	@GetMapping("/agents/status/{status}")
 	ResponseEntity<List<TravelAgent>> getAgentsByStatus(@PathVariable("status") String status){
-		List<TravelAgent> agentsByStatus = travelAgentService.getAgentsByStatus(status);
+		Status agentStatus = Status.valueOf(status.toUpperCase());
+		List<TravelAgent> agentsByStatus = travelAgentService.getAgentsByStatus(agentStatus);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "get travel agents by status api");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByStatus);

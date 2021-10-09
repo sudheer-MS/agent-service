@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.travelagent.model.Priority;
+import com.travelagent.model.Status;
 import com.travelagent.model.TravelAgent;
 /**
  * @author SudheerMS
@@ -17,7 +19,7 @@ public interface ITravelAgentRepository extends JpaRepository<TravelAgent, Integ
 	
 	List<TravelAgent> findByOwner(String owner);
 	
-	List<TravelAgent> findByPriority(String priority);
+	List<TravelAgent> findByPriority(Priority priority);
 	
-	List<TravelAgent> findByStatus(String status);
+	List<TravelAgent> findByStatus(Status status);
 }

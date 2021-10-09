@@ -1,15 +1,23 @@
 package com.travelagent.service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.travelagent.model.Priority;
+import com.travelagent.model.Status;
+import com.travelagent.model.Task;
 import com.travelagent.model.TravelAgent;
+import com.travelagent.model.TravelPackage;
 import com.travelagent.repository.ITravelAgentRepository;
 /**
  * @author SudheerMS
  *
  */
+@Service
 public class TravelAgentServiceImpl implements ITravelAgentService{
 	
 	ITravelAgentRepository travelAgentRepository;
@@ -18,9 +26,15 @@ public class TravelAgentServiceImpl implements ITravelAgentService{
 	public void setTravelAgentRepository(ITravelAgentRepository travelAgentRepository) {
 		this.travelAgentRepository = travelAgentRepository;
 	}
+	
+	Set<TravelPackage> packages = new HashSet<>();
+	
+	Set<Task> tasks = new HashSet<>();
 
 	@Override
 	public TravelAgent createAgent(TravelAgent travelAgent) {
+		travelAgent.setTravelPackages(packages);
+		travelAgent.setTasks(tasks);
 		TravelAgent newTravelAgent = travelAgentRepository.save(travelAgent);
 		return newTravelAgent;
 	}
@@ -62,13 +76,13 @@ public class TravelAgentServiceImpl implements ITravelAgentService{
 	}
 
 	@Override
-	public List<TravelAgent> getAgentsByPriority(String priority) {
+	public List<TravelAgent> getAgentsByPriority(Priority priority) {
 		List<TravelAgent> agentsByPriority = travelAgentRepository.findByPriority(priority);
 		return agentsByPriority;
 	}
 
 	@Override
-	public List<TravelAgent> getAgentsByStatus(String status) {
+	public List<TravelAgent> getAgentsByStatus(Status status) {
 		List<TravelAgent> agentsByStatus = travelAgentRepository.findByStatus(status);
 		return agentsByStatus;
 	}

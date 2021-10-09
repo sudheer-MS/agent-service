@@ -2,6 +2,8 @@ package com.travelagent.service;
 
 import java.util.List;
 
+import com.travelagent.model.Priority;
+import com.travelagent.model.Status;
 import com.travelagent.model.TravelAgent;
 /**
  * @author SudheerMS
@@ -23,8 +25,8 @@ public interface ITravelAgentService {
 	
 	List<TravelAgent> getAgentsByOwner(String owner);
 	
-	List<TravelAgent> getAgentsByPriority(String priority);
+	List<TravelAgent> getAgentsByPriority(Priority priority);
 	
-	List<TravelAgent> getAgentsByStatus(String status);
+	List<TravelAgent> getAgentsByStatus(Status status);
 	
 }
