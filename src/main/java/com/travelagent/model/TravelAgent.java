@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,10 +48,12 @@ public class TravelAgent {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="agent_id")
-	private Set<TravelPackage> TravelPackages;
+	@JsonIgnore
+	private Set<TravelPackage> travelPackages;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="agent_id")
+	@JsonIgnore
 	private Set<Task> tasks;
-	
+
 }

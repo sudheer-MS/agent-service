@@ -1,7 +1,8 @@
 package com.travelagent.controllers;
 
+import java.util.HashSet;
 import java.util.List;
-
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.travelagent.model.Priority;
 import com.travelagent.model.Status;
+import com.travelagent.model.Task;
 import com.travelagent.model.TravelAgent;
+import com.travelagent.model.TravelPackage;
 import com.travelagent.service.ITravelAgentService;
 /**
  * @author SudheerMS
@@ -34,6 +37,8 @@ public class TravelAgentController {
 	public void setTravelAgentService(ITravelAgentService travelAgentService) {
 		this.travelAgentService = travelAgentService;
 	}
+	
+	Set<Task> tasks = new HashSet<>();
 
 	@PostMapping("/agents")
 	ResponseEntity<TravelAgent> createAgent(@RequestBody TravelAgent travelAgent){
@@ -107,6 +112,40 @@ public class TravelAgentController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "get travel agents by status api");
 		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(agentsByStatus);
+	}
+	
+	// rest template methods
+	
+	@PostMapping("/agents/travel-package/{agentId}")
+	ResponseEntity<TravelPackage> createTravelPackage(@PathVariable("agentId") int agentId, @RequestBody TravelPackage travelPackage) {
+		TravelPackage newTravelPackage = travelAgentService.createTravelPackage(travelPackage, agentId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("desc", "create travel package by agent - api");
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(newTravelPackage); 
+	}
+	
+	@PutMapping("/agents/travel-package")
+	ResponseEntity<String> updateTravelPackage(@RequestBody TravelPackage travelPackage) {
+		String response = travelAgentService.updateTravelPackage(travelPackage);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("desc", "update travel package by agent - api");
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(response);
+	}
+	
+	@DeleteMapping("/agents/travel-package/{packageId}")
+	ResponseEntity<String> deleteTravelPackage(@PathVariable("packageId") int packageId) {
+		String response = travelAgentService.deleteTravelPackage(packageId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("desc", "delete travel package by agent - api");
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(response);
+	}
+	
+	@GetMapping("/agents/travel-package/package-id/{packageId}")
+	ResponseEntity<TravelPackage> getTravelPackageById(@PathVariable("packageId") int packageId) {
+		TravelPackage newTravelPackage = travelAgentService.getTravelPackageById(packageId);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("desc", "get a travel package by Id from agent - api");
+		return ResponseEntity.status(HttpStatus.OK).headers(headers).body(newTravelPackage);
 	}
 	
 }
