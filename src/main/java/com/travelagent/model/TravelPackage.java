@@ -50,6 +50,6 @@ public class TravelPackage {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="package_id")
-	@JsonIgnore
 	private Set<Task> tasks;
+	
 }

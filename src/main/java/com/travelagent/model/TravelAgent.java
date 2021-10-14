@@ -48,7 +48,6 @@ public class TravelAgent {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="agent_id")
-	@JsonIgnore
 	private Set<TravelPackage> travelPackages;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

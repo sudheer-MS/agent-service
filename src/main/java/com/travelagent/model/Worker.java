@@ -41,6 +41,5 @@ public class Worker {
 	
 	@ManyToOne
 	@JoinColumn(name = "task_id")
-	@JsonIgnore
 	private Task task;
 }
