@@ -71,9 +71,54 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		ApiErrors apiError = new ApiErrors(timestamp, message, status.value(), error);
 		return ResponseEntity.status(status).body(apiError);
 	}
-
+	
+	@ExceptionHandler(TravelAgentNotFoundException.class)
+	protected ResponseEntity<Object> handleAgentNotFound(TravelAgentNotFoundException ex) {
+		String message = ex.getMessage();
+		LocalDateTime timestamp = LocalDateTime.now();
+		String error = "Agent not available";
+		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.CONFLICT.value(), error);
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+	}
+	
+	@ExceptionHandler(TravelPackageNotFoundException.class)
+	protected ResponseEntity<Object> handlePackageNotFound(TravelPackageNotFoundException ex) {
+		String message = ex.getMessage();
+		LocalDateTime timestamp = LocalDateTime.now();
+		String error = "Package not available";
+		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.CONFLICT.value(), error);
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
+	}
+	
+	@ExceptionHandler(TravelAgentNotFoundException.class)
+	protected ResponseEntity<Object> handleTravelAgentNotFoundException(TravelAgentNotFoundException ex) {
+		String message = ex.getMessage();
+		LocalDateTime timestamp = LocalDateTime.now();
+		String error = "Travel Agent Not Found Exception";
+		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.BAD_GATEWAY.value(), error);
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(apiError);
+	}
+	
+	@ExceptionHandler(TravelPackageNotFoundException.class)
+	protected ResponseEntity<Object> handleTravelPackageNotFoundException(TravelPackageNotFoundException ex) {
+		String message = ex.getMessage();
+		LocalDateTime timestamp = LocalDateTime.now();
+		String error = "Travel Package Not Found Exception";
+		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.BAD_GATEWAY.value(), error);
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(apiError);
+	}
+	
 	@ExceptionHandler(RuntimeException.class)
-	protected ResponseEntity<Object> handleException(RuntimeException ex) {
+	protected ResponseEntity<Object> handleRunTimeException(RuntimeException ex) {
+		String message = ex.getMessage();
+		LocalDateTime timestamp = LocalDateTime.now();
+		String error = "Runtime Exception Occured";
+		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.BAD_GATEWAY.value(), error);
+		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(apiError);
+	}
+
+	@ExceptionHandler(Exception.class)
+	protected ResponseEntity<Object> handleException(Exception ex) {
 		String message = ex.getMessage();
 		LocalDateTime timestamp = LocalDateTime.now();
 		String error = "Other Exception";

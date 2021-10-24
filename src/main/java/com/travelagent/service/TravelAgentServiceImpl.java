@@ -127,11 +127,9 @@ public class TravelAgentServiceImpl implements ITravelAgentService {
 	@Override
 	public TravelPackage createTravelPackage(TravelPackage travelPackage, int agentId)
 			throws TravelAgentNotFoundException {
-//		travelPackage.setTasks(tasks);
-		TravelAgent getTravelAgent = getByAgentId(agentId);
-		if (getTravelAgent == null) {
-			throw new TravelAgentNotFoundException("Travel Agent not found with the given id..");
-		}
+		TravelAgent getTravelAgent = travelAgentRepository.findById(agentId)
+				.orElseThrow(() -> new TravelAgentNotFoundException("Travel Agent not found with the given id.."));
+
 		travelPackage.setTravelAgent(getTravelAgent);
 		String url = BASEURL + "/packages";
 		ResponseEntity<TravelPackage> newTravelPackage = restTemplate.postForEntity(url, travelPackage,
@@ -142,7 +140,7 @@ public class TravelAgentServiceImpl implements ITravelAgentService {
 	@Override
 	public String updateTravelPackage(TravelPackage travelPackage) {
 		String url = BASEURL + "/packages";
-		restTemplate.put(url, travelPackage);
+		restTemplate.postForEntity(url, travelPackage, TravelPackage.class);
 		return " travel packageupdated successfully";
 	}
 

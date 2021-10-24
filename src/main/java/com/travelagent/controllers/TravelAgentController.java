@@ -117,7 +117,7 @@ public class TravelAgentController {
 	// rest template methods
 	
 	@PostMapping("/agents/travel-package/{agentId}")
-	ResponseEntity<TravelPackage> createTravelPackage(@PathVariable("agentId") int agentId, @RequestBody TravelPackage travelPackage) {
+	ResponseEntity<TravelPackage> createTravelPackage(@PathVariable("agentId") Integer agentId, @RequestBody TravelPackage travelPackage) {
 		TravelPackage newTravelPackage = travelAgentService.createTravelPackage(travelPackage, agentId);
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("desc", "create travel package by agent - api");
