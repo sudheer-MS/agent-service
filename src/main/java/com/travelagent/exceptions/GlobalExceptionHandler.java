@@ -90,24 +90,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(apiError);
 	}
 	
-	@ExceptionHandler(TravelAgentNotFoundException.class)
-	protected ResponseEntity<Object> handleTravelAgentNotFoundException(TravelAgentNotFoundException ex) {
-		String message = ex.getMessage();
-		LocalDateTime timestamp = LocalDateTime.now();
-		String error = "Travel Agent Not Found Exception";
-		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.BAD_GATEWAY.value(), error);
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(apiError);
-	}
-	
-	@ExceptionHandler(TravelPackageNotFoundException.class)
-	protected ResponseEntity<Object> handleTravelPackageNotFoundException(TravelPackageNotFoundException ex) {
-		String message = ex.getMessage();
-		LocalDateTime timestamp = LocalDateTime.now();
-		String error = "Travel Package Not Found Exception";
-		ApiErrors apiError = new ApiErrors(timestamp, message, HttpStatus.BAD_GATEWAY.value(), error);
-		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(apiError);
-	}
-	
 	@ExceptionHandler(RuntimeException.class)
 	protected ResponseEntity<Object> handleRunTimeException(RuntimeException ex) {
 		String message = ex.getMessage();
